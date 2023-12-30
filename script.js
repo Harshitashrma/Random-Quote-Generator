@@ -1,5 +1,7 @@
 let quote = document.querySelector(".quote");
 let next = document.querySelector("#next");
+let prev = document.querySelector("#prev");
+let subButton = document.getElementById('search');
 let array = [
   "All our dreams can come true, if we have the courage to pursue them.—Walt Disney",
 
@@ -24,12 +26,37 @@ let array = [
 
 
 
-const nextQuote = ()=>{
-    const randIdx = Math.floor(Math.random()*10);
-    quote.innerText= array[randIdx];
-    return array[randIdx];
+let userIndex = 0; 
+let currentIndex = 0;
+
+function getInput (){
+  userIndex = parseInt(document.getElementById("input").value);
+  quote.innerText = array[userIndex];
+  currentIndex = userIndex;
+  return userIndex;
 }
-next.addEventListener("click",()=>{
-    nextQuote();
-    
-})
+
+function nextQuote(){
+    if(currentIndex<array.length-1)
+    {
+      currentIndex++;
+    }
+    else{
+      currentIndex=0;
+    }
+    quote.innerText = array[currentIndex];
+}
+
+function prevQuote(){
+  if(currentIndex>0)
+  {
+    currentIndex--;
+  }
+  else{
+    currentIndex=array.length-1;
+  }
+  quote.innerText = array[currentIndex];;
+}
+next.addEventListener("click",nextQuote);
+subButton.addEventListener("click",getInput );
+prev.addEventListener("click",prevQuote);
